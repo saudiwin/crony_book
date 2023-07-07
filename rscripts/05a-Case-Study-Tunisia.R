@@ -26,7 +26,7 @@ knitr::opts_chunk$set(echo=FALSE,fig.align='center',dpi=1200,dev=c("pdf","png"))
 ## ----tundem,fig.align='center',fig.cap='Varieties of Democracy Values for Tunisia',out.width="\\linewidth",echo=F,warning=F,message=F----
 require(dplyr)
 require(ggplot2)
-readr::read_csv("data/vdem_all.csv") %>% 
+readRDS("data/vdem_all.rds") %>% 
   filter(country_name=="Tunisia") %>% 
   select(country_name, year, v2x_polyarchy, v2x_polyarchy_codehigh,
          v2x_polyarchy_codelow) %>% 
