@@ -24,11 +24,25 @@ This data and code is released under the MIT license (see included file
 
 ## Requirements to run the code
 
-Re-running the code files requires installation of the following package
-libraries:
+This repository uses the R package
+[`packrat`](https://rstudio.github.io/packrat/walkthrough.html) to
+manage package dependencies. All of the packages used to run the code
+are included in the repo as source files with the versions used when the
+code was last run by the author. When R is started in the root directory
+(or via a project in Rstudio), `packrat` will set up a package library
+in the root directory and install any necessary packages from included
+source package files, which includes the ones listed below and all of
+their dependencies. *If you are having trouble installing source
+packages on Mac OS X, try running R from the terminal in the project
+folder (see Github issue here:
+<https://github.com/rstudio/rstudio/issues/10883>)*.
+
+Specifically, the following package libraries need to be installed to
+run the code:
 
     tidyverse
     ggplot2
+    Hmisc
     ggthemes
     qualtRics
     lubridate
@@ -44,14 +58,15 @@ libraries:
     boot
     mirt
     WDI
+    remotes
     vdemdata
     knitr
     rmarkdown
 
-I would recommend using R version 4.2 or greater to run the code.
-
-Note that package `vdemdata` is not available on CRAN but can be
-installed from the Github repo site with the following code:
+If `packrat` is not available or you do not wish to you use it, simply
+install the packages above from CRAN. Note that package `vdemdata` is
+not available on CRAN but can be installed from the Github repo site
+with the following code:
 
     remotes::install_github("vdeminstitute/vdemdata")
 
@@ -75,17 +90,17 @@ The session info of the machine last used to run the code is as follows:
     ## [8] methods   base     
     ## 
     ## other attached packages:
-    ##  [1] knitr_1.42           vdemdata_13.0        WDI_2.7.8           
-    ##  [4] mirt_1.38.1          lattice_0.20-45      boot_1.3-28         
-    ##  [7] kableExtra_1.3.4     brms_2.18.0          Rcpp_1.0.10         
-    ## [10] binom_1.1-1.1        cjoint_2.1.0         survey_4.1-1        
-    ## [13] survival_3.4-0       Matrix_1.5-1         lmtest_0.9-40       
-    ## [16] zoo_1.8-11           sandwich_3.0-2       haven_2.5.2         
-    ## [19] googlesheets4_1.0.1  qualtRics_3.1.7.9000 ggthemes_4.2.4      
-    ## [22] lubridate_1.9.2      forcats_1.0.0        stringr_1.5.0       
-    ## [25] dplyr_1.1.0          purrr_1.0.1          readr_2.1.4         
-    ## [28] tidyr_1.3.0          tibble_3.2.0         ggplot2_3.4.1       
-    ## [31] tidyverse_2.0.0     
+    ##  [1] knitr_1.43          vdemdata_13.0       WDI_2.7.8          
+    ##  [4] mirt_1.39           lattice_0.20-45     boot_1.3-28.1      
+    ##  [7] kableExtra_1.3.4    brms_2.19.0         Rcpp_1.0.10        
+    ## [10] binom_1.1-1.1       cjoint_2.1.0        survey_4.1-1       
+    ## [13] survival_3.4-0      Matrix_1.5-1        lmtest_0.9-40      
+    ## [16] zoo_1.8-12          sandwich_3.0-2      haven_2.5.3        
+    ## [19] googlesheets4_1.1.1 qualtRics_3.1.7     ggthemes_4.2.4     
+    ## [22] lubridate_1.9.2     forcats_1.0.0       stringr_1.5.0      
+    ## [25] dplyr_1.1.0         purrr_1.0.1         readr_2.1.4        
+    ## [28] tidyr_1.3.0         tibble_3.2.0        ggplot2_3.4.2      
+    ## [31] tidyverse_2.0.0    
     ## 
     ## loaded via a namespace (and not attached):
     ##   [1] backports_1.4.1      systemfonts_1.0.4    plyr_1.8.8          
@@ -96,36 +111,38 @@ The session info of the machine last used to run the code is as follows:
     ##  [16] tzdb_0.3.0           RcppParallel_5.1.7   matrixStats_0.63.0  
     ##  [19] xts_0.13.0           svglite_2.1.1        timechange_0.2.0    
     ##  [22] prettyunits_1.1.1    colorspace_2.1-0     rvest_1.0.3         
-    ##  [25] mitools_2.4          xfun_0.37            callr_3.7.3         
+    ##  [25] mitools_2.4          xfun_0.39            callr_3.7.3         
     ##  [28] crayon_1.5.2         jsonlite_1.8.4       glue_1.6.2          
-    ##  [31] gtable_0.3.1         gargle_1.3.0         emmeans_1.8.5       
-    ##  [34] webshot_0.5.4        distributional_0.3.1 pkgbuild_1.4.0      
-    ##  [37] rstan_2.21.8         dcurver_0.9.2        abind_1.4-5         
-    ##  [40] scales_1.2.1         mvtnorm_1.1-3        DBI_1.1.3           
-    ##  [43] miniUI_0.1.1.1       viridisLite_0.4.1    xtable_1.8-4        
-    ##  [46] StanHeaders_2.21.0-7 DT_0.27              htmlwidgets_1.6.1   
-    ##  [49] httr_1.4.5           threejs_0.3.3        posterior_1.4.0     
-    ##  [52] ellipsis_0.3.2       pkgconfig_2.0.3      loo_2.5.1           
-    ##  [55] farver_2.1.1         utf8_1.2.3           tidyselect_1.2.0    
-    ##  [58] rlang_1.0.6          reshape2_1.4.4       later_1.3.0         
-    ##  [61] munsell_0.5.0        cellranger_1.1.0     tools_4.2.2         
-    ##  [64] cli_3.6.0            generics_0.1.3       sjlabelled_1.2.0    
-    ##  [67] evaluate_0.20        fastmap_1.1.1        yaml_2.3.7          
-    ##  [70] processx_3.8.0       fs_1.6.1             pbapply_1.7-0       
+    ##  [31] gtable_0.3.1         gargle_1.5.1         webshot_0.5.4       
+    ##  [34] distributional_0.3.1 pkgbuild_1.4.0       rstan_2.21.8        
+    ##  [37] dcurver_0.9.2        abind_1.4-5          scales_1.2.1        
+    ##  [40] mvtnorm_1.1-3        DBI_1.1.3            miniUI_0.1.1.1      
+    ##  [43] viridisLite_0.4.1    xtable_1.8-4         StanHeaders_2.21.0-7
+    ##  [46] DT_0.27              htmlwidgets_1.6.1    httr_1.4.5          
+    ##  [49] threejs_0.3.3        posterior_1.4.0      ellipsis_0.3.2      
+    ##  [52] pkgconfig_2.0.3      loo_2.5.1            farver_2.1.1        
+    ##  [55] utf8_1.2.3           tidyselect_1.2.0     rlang_1.1.1         
+    ##  [58] reshape2_1.4.4       later_1.3.0          munsell_0.5.0       
+    ##  [61] cellranger_1.1.0     tools_4.2.2          cli_3.6.0           
+    ##  [64] generics_0.1.3       sjlabelled_1.2.0     evaluate_0.20       
+    ##  [67] fastmap_1.1.1        yaml_2.3.7           processx_3.8.0      
+    ##  [70] fs_1.6.1             packrat_0.9.1        pbapply_1.7-0       
     ##  [73] nlme_3.1-160         mime_0.12            xml2_1.3.3          
     ##  [76] compiler_4.2.2       bayesplot_1.10.0     shinythemes_1.2.0   
     ##  [79] rstudioapi_0.14      stringi_1.7.12       ps_1.7.2            
     ##  [82] Brobdingnag_1.2-9    markdown_1.5         permute_0.9-7       
     ##  [85] vegan_2.6-4          shinyjs_2.1.0        tensorA_0.36.2      
-    ##  [88] vctrs_0.5.2          pillar_1.8.1         lifecycle_1.0.3     
-    ##  [91] bridgesampling_1.1-2 estimability_1.4.1   insight_0.19.1      
-    ##  [94] httpuv_1.6.9         R6_2.5.1             promises_1.2.0.1    
-    ##  [97] gridExtra_2.3        codetools_0.2-18     MASS_7.3-58.1       
-    ## [100] colourpicker_1.2.0   gtools_3.9.4         withr_2.5.0         
-    ## [103] Deriv_4.1.3          shinystan_2.6.0      mgcv_1.8-41         
-    ## [106] parallel_4.2.2       hms_1.1.2            coda_0.19-4         
-    ## [109] rmarkdown_2.20       googledrive_2.0.0    shiny_1.7.4         
-    ## [112] base64enc_0.1-3      dygraphs_1.1.1.6
+    ##  [88] vctrs_0.5.2          pillar_1.9.0         lifecycle_1.0.3     
+    ##  [91] bridgesampling_1.1-2 insight_0.19.1       httpuv_1.6.9        
+    ##  [94] R6_2.5.1             promises_1.2.0.1     gridExtra_2.3       
+    ##  [97] codetools_0.2-18     MASS_7.3-58.1        colourpicker_1.2.0  
+    ## [100] gtools_3.9.4         withr_2.5.0          Deriv_4.1.3         
+    ## [103] shinystan_2.6.0      mgcv_1.8-41          parallel_4.2.2      
+    ## [106] hms_1.1.2            coda_0.19-4          rmarkdown_2.23      
+    ## [109] googledrive_2.1.1    shiny_1.7.4          base64enc_0.1-3     
+    ## [112] dygraphs_1.1.1.6
+
+I would recommend using R version 4.2 or greater to run the code.
 
 ## Running the code
 
