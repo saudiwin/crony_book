@@ -1,10 +1,14 @@
 # README
 
-This Github repository contains code and data to reproduce results in
-the book [Making Democracy Safe for Business: Corporate Politics During
-the Arab
+This Github repository contains R code and survey data to reproduce
+results in the book [Making Democracy Safe for Business: Corporate
+Politics During the Arab
 Uprisings](https://www.cambridge.org/gb/universitypress/subjects/politics-international-relations/political-economy/making-democracy-safe-business-corporate-politics-during-arab-uprisings?format=HB)
-by [Robert Kubinec](https://www.robertkubinec.com) (Cambridge, 2023).
+by [Robert Kubinec](https://www.robertkubinec.com) (Cambridge, 2023). If
+you are not familiar with how to download (or “clone”) the files in this
+repository, I encourage you to consider using the free [Github Desktop
+software](https://desktop.github.com/) to enable you to do so.
+
 The repository contains one R script for each empirical chapter in the
 book in the `rscripts` folder. These scripts were generated from the
 underlying Rmarkdown files used to create the book. However, because the
@@ -12,7 +16,8 @@ text of the book cannot be released due to copyright issues, the code is
 included without the text. The `data` folder contains necessary survey
 and ancillary data for the code to run. All survey responses have been
 anonymized by removing identifiers and any variables that could indicate
-the location of respondents.
+the location of respondents. All reproduced figures from the book are
+saved in the `figures` folder.
 
 This data and code is released under the MIT license (see included file
 `LICENSE`).
@@ -129,7 +134,7 @@ script in the `rscripts` folder and recompile the `README` file with the
 latest session info. Note that the code reproduces some figures from
 image files rather than from raw data. These are usually descriptive
 graphics and if there is any question about these files, please email
-the author at (<rmk7@nyu.edu>).
+the author at <rmk7@nyu.edu>.
 
 The two scripts in `rscripts` with statistical models (`06-` and `07-`)
 have an option `run_code` that is set by default to `TRUE` because the
@@ -195,5 +200,6 @@ A brief list of questions in the survey and their meaning:
 
 Note that there is substantial additional data available in the surveys,
 but this has not been released to protect the anonymity of respondents.
-If you are interested in additional data, please contact the author of
-the survey at (<rmk7@nyu.edu>).
+It is possible to share this additional data for research purposes. If
+you are interested in additional data, please contact the author of the
+survey at <rmk7@nyu.edu>.
