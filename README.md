@@ -3,7 +3,7 @@
 This Github repository contains code and data to reproduce results in
 the book [Making Democracy Safe for Business: Corporate Politics During
 the Arab
-Uprisings](https://www.cambridge.org/core/books/making-democracy-safe-for-business/B937C65E6766D9A5D8AC390EA2182B21)
+Uprisings](https://www.cambridge.org/gb/universitypress/subjects/politics-international-relations/political-economy/making-democracy-safe-business-corporate-politics-during-arab-uprisings?format=HB)
 by [Robert Kubinec](https://www.robertkubinec.com) (Cambridge, 2023).
 The repository contains one R script for each empirical chapter in the
 book in the `rscripts` folder. These scripts were generated from the
