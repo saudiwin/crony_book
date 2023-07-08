@@ -79,68 +79,59 @@ The session info of the machine last used to run the code is as follows:
     ## Running under: macOS Monterey 12.6.1
     ## 
     ## Matrix products: default
-    ## BLAS:   /Library/Frameworks/R.framework/Versions/4.2-arm64/Resources/lib/libRblas.0.dylib
     ## LAPACK: /Library/Frameworks/R.framework/Versions/4.2-arm64/Resources/lib/libRlapack.dylib
     ## 
     ## locale:
     ## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
     ## 
     ## attached base packages:
-    ## [1] stats4    grid      stats     graphics  grDevices utils     datasets 
-    ## [8] methods   base     
+    ##  [1] parallel  stats4    grid      stats     graphics  grDevices utils     datasets  methods  
+    ## [10] base     
     ## 
     ## other attached packages:
-    ##  [1] knitr_1.43          vdemdata_13.0       WDI_2.7.8          
-    ##  [4] mirt_1.39           lattice_0.20-45     boot_1.3-28.1      
-    ##  [7] kableExtra_1.3.4    brms_2.19.0         Rcpp_1.0.10        
-    ## [10] binom_1.1-1.1       cjoint_2.1.0        survey_4.1-1       
-    ## [13] survival_3.4-0      Matrix_1.5-1        lmtest_0.9-40      
-    ## [16] zoo_1.8-12          sandwich_3.0-2      haven_2.5.3        
-    ## [19] googlesheets4_1.1.1 qualtRics_3.1.7     ggthemes_4.2.4     
-    ## [22] lubridate_1.9.2     forcats_1.0.0       stringr_1.5.0      
-    ## [25] dplyr_1.1.0         purrr_1.0.1         readr_2.1.4        
-    ## [28] tidyr_1.3.0         tibble_3.2.0        ggplot2_3.4.2      
-    ## [31] tidyverse_2.0.0    
+    ##  [1] knitr_1.43          ggrepel_0.9.3       patchwork_1.1.2     vdemdata_13.0      
+    ##  [5] WDI_2.7.8           mirt_1.39           lattice_0.20-45     boot_1.3-28.1      
+    ##  [9] kableExtra_1.3.4    brms_2.19.0         Rcpp_1.0.10         binom_1.1-1.1      
+    ## [13] cjoint_2.1.0        survey_4.1-1        survival_3.4-0      Matrix_1.5-1       
+    ## [17] lmtest_0.9-40       zoo_1.8-12          sandwich_3.0-2      haven_2.5.3        
+    ## [21] googlesheets4_1.1.1 qualtRics_3.1.7     ggthemes_4.2.4      lubridate_1.9.2    
+    ## [25] forcats_1.0.0       stringr_1.5.0       dplyr_1.1.0         purrr_1.0.1        
+    ## [29] readr_2.1.4         tidyr_1.3.0         tibble_3.2.0        ggplot2_3.4.2      
+    ## [33] tidyverse_2.0.0    
     ## 
     ## loaded via a namespace (and not attached):
-    ##   [1] backports_1.4.1      systemfonts_1.0.4    plyr_1.8.8          
-    ##   [4] igraph_1.4.1         GPArotation_2023.3-1 splines_4.2.2       
-    ##   [7] crosstalk_1.2.0      rstantools_2.3.0     inline_0.3.19       
-    ##  [10] digest_0.6.31        htmltools_0.5.4      fansi_1.0.4         
-    ##  [13] magrittr_2.0.3       checkmate_2.1.0      cluster_2.1.4       
-    ##  [16] tzdb_0.3.0           RcppParallel_5.1.7   matrixStats_0.63.0  
-    ##  [19] xts_0.13.0           svglite_2.1.1        timechange_0.2.0    
-    ##  [22] prettyunits_1.1.1    colorspace_2.1-0     rvest_1.0.3         
-    ##  [25] mitools_2.4          xfun_0.39            callr_3.7.3         
-    ##  [28] crayon_1.5.2         jsonlite_1.8.4       glue_1.6.2          
-    ##  [31] gtable_0.3.1         gargle_1.5.1         webshot_0.5.4       
-    ##  [34] distributional_0.3.1 pkgbuild_1.4.0       rstan_2.21.8        
-    ##  [37] dcurver_0.9.2        abind_1.4-5          scales_1.2.1        
-    ##  [40] mvtnorm_1.1-3        DBI_1.1.3            miniUI_0.1.1.1      
-    ##  [43] viridisLite_0.4.1    xtable_1.8-4         StanHeaders_2.21.0-7
-    ##  [46] DT_0.27              htmlwidgets_1.6.1    httr_1.4.5          
-    ##  [49] threejs_0.3.3        posterior_1.4.0      ellipsis_0.3.2      
-    ##  [52] pkgconfig_2.0.3      loo_2.5.1            farver_2.1.1        
-    ##  [55] utf8_1.2.3           tidyselect_1.2.0     rlang_1.1.1         
-    ##  [58] reshape2_1.4.4       later_1.3.0          munsell_0.5.0       
-    ##  [61] cellranger_1.1.0     tools_4.2.2          cli_3.6.0           
-    ##  [64] generics_0.1.3       sjlabelled_1.2.0     evaluate_0.20       
-    ##  [67] fastmap_1.1.1        yaml_2.3.7           processx_3.8.0      
-    ##  [70] fs_1.6.1             packrat_0.9.1        pbapply_1.7-0       
-    ##  [73] nlme_3.1-160         mime_0.12            xml2_1.3.3          
-    ##  [76] compiler_4.2.2       bayesplot_1.10.0     shinythemes_1.2.0   
-    ##  [79] rstudioapi_0.14      stringi_1.7.12       ps_1.7.2            
-    ##  [82] Brobdingnag_1.2-9    markdown_1.5         permute_0.9-7       
-    ##  [85] vegan_2.6-4          shinyjs_2.1.0        tensorA_0.36.2      
-    ##  [88] vctrs_0.5.2          pillar_1.9.0         lifecycle_1.0.3     
-    ##  [91] bridgesampling_1.1-2 insight_0.19.1       httpuv_1.6.9        
-    ##  [94] R6_2.5.1             promises_1.2.0.1     gridExtra_2.3       
-    ##  [97] codetools_0.2-18     MASS_7.3-58.1        colourpicker_1.2.0  
-    ## [100] gtools_3.9.4         withr_2.5.0          Deriv_4.1.3         
-    ## [103] shinystan_2.6.0      mgcv_1.8-41          parallel_4.2.2      
-    ## [106] hms_1.1.2            coda_0.19-4          rmarkdown_2.23      
-    ## [109] googledrive_2.1.1    shiny_1.7.4          base64enc_0.1-3     
-    ## [112] dygraphs_1.1.1.6
+    ##   [1] backports_1.4.1      Hmisc_5.1-0          systemfonts_1.0.4    plyr_1.8.8          
+    ##   [5] igraph_1.4.1         GPArotation_2023.3-1 splines_4.2.2        crosstalk_1.2.0     
+    ##   [9] rstantools_2.3.0     inline_0.3.19        digest_0.6.31        htmltools_0.5.4     
+    ##  [13] fansi_1.0.4          magrittr_2.0.3       checkmate_2.1.0      cluster_2.1.4       
+    ##  [17] tzdb_0.3.0           RcppParallel_5.1.7   matrixStats_0.63.0   vroom_1.6.1         
+    ##  [21] xts_0.13.0           svglite_2.1.1        timechange_0.2.0     prettyunits_1.1.1   
+    ##  [25] colorspace_2.1-0     rvest_1.0.3          mitools_2.4          textshaping_0.3.6   
+    ##  [29] xfun_0.39            callr_3.7.3          crayon_1.5.2         jsonlite_1.8.4      
+    ##  [33] glue_1.6.2           gtable_0.3.1         gargle_1.5.1         webshot_0.5.4       
+    ##  [37] distributional_0.3.1 pkgbuild_1.4.0       rstan_2.21.8         dcurver_0.9.2       
+    ##  [41] abind_1.4-5          scales_1.2.1         mvtnorm_1.1-3        DBI_1.1.3           
+    ##  [45] miniUI_0.1.1.1       viridisLite_0.4.1    xtable_1.8-4         htmlTable_2.4.1     
+    ##  [49] foreign_0.8-83       bit_4.0.5            Formula_1.2-5        StanHeaders_2.21.0-7
+    ##  [53] DT_0.27              htmlwidgets_1.6.1    httr_1.4.5           threejs_0.3.3       
+    ##  [57] posterior_1.4.0      ellipsis_0.3.2       pkgconfig_2.0.3      loo_2.5.1           
+    ##  [61] farver_2.1.1         nnet_7.3-18          utf8_1.2.3           tidyselect_1.2.0    
+    ##  [65] labeling_0.4.2       rlang_1.1.1          reshape2_1.4.4       later_1.3.0         
+    ##  [69] munsell_0.5.0        cellranger_1.1.0     tools_4.2.2          cli_3.6.0           
+    ##  [73] generics_0.1.3       sjlabelled_1.2.0     evaluate_0.20        fastmap_1.1.1       
+    ##  [77] yaml_2.3.7           ragg_1.2.5           processx_3.8.0       bit64_4.0.5         
+    ##  [81] fs_1.6.1             packrat_0.9.1        pbapply_1.7-0        nlme_3.1-160        
+    ##  [85] mime_0.12            xml2_1.3.3           compiler_4.2.2       bayesplot_1.10.0    
+    ##  [89] shinythemes_1.2.0    rstudioapi_0.14      stringi_1.7.12       ps_1.7.2            
+    ##  [93] highr_0.10           Brobdingnag_1.2-9    markdown_1.5         permute_0.9-7       
+    ##  [97] vegan_2.6-4          shinyjs_2.1.0        tensorA_0.36.2       vctrs_0.5.2         
+    ## [101] pillar_1.9.0         lifecycle_1.0.3      bridgesampling_1.1-2 data.table_1.14.8   
+    ## [105] insight_0.19.1       httpuv_1.6.9         R6_2.5.1             promises_1.2.0.1    
+    ## [109] gridExtra_2.3        codetools_0.2-18     MASS_7.3-58.1        colourpicker_1.2.0  
+    ## [113] gtools_3.9.4         withr_2.5.0          Deriv_4.1.3          shinystan_2.6.0     
+    ## [117] mgcv_1.8-41          hms_1.1.2            rpart_4.1.19         coda_0.19-4         
+    ## [121] rmarkdown_2.23       googledrive_2.1.1    shiny_1.7.4          base64enc_0.1-3     
+    ## [125] dygraphs_1.1.1.6
 
 I would recommend using R version 4.2 or greater to run the code.
 
