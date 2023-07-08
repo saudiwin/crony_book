@@ -47,6 +47,7 @@ Specifically, the following package libraries need to be installed to run the co
 ```
 tidyverse
 ggplot2
+Hmisc
 ggthemes
 qualtRics
 lubridate

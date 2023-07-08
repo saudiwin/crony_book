@@ -31,10 +31,22 @@ Source: CRAN
 Version: 4.1.3
 Hash: f9ca4cbb51e79cbfe8cc3d978806c14e
 
+Package: Formula
+Source: CRAN
+Version: 1.2-5
+Hash: f25c0fa51c6d3c65c55b12341b24b6bb
+
 Package: GPArotation
 Source: CRAN
 Version: 2023.3-1
 Hash: dcbebc15ddd006c76a172b690992617a
+
+Package: Hmisc
+Source: CRAN
+Version: 5.1-0
+Hash: 35d9927496a78a9a5405682c17776ab1
+Requires: Formula, base64enc, cluster, colorspace, data.table, ggplot2,
+    gridExtra, gtable, htmltools, knitr, rmarkdown, htmlTable, viridis
 
 Package: MASS
 Source: CRAN
@@ -484,6 +496,13 @@ Version: 1.1.2
 Hash: 5edb7050f11948b571502831b7aba22f
 Requires: ellipsis, lifecycle, pkgconfig, rlang, vctrs
 
+Package: htmlTable
+Source: CRAN
+Version: 2.4.1
+Hash: 48739b9633913e29743d6271e9170d1a
+Requires: checkmate, htmltools, htmlwidgets, knitr, magrittr, stringr,
+    rstudioapi
+
 Package: htmltools
 Source: CRAN
 Version: 0.5.4
@@ -550,8 +569,9 @@ Package: kableExtra
 Source: CRAN
 Version: 1.3.4
 Hash: db4b08dd91be25fb01737c04a61d033b
-Requires: digest, glue, htmltools, knitr, magrittr, rmarkdown, scales,
-    stringr, viridisLite, rstudioapi, rvest, svglite, webshot, xml2
+Requires: digest, glue, htmltools, knitr, magrittr, rmarkdown,
+    rstudioapi, scales, stringr, viridisLite, rvest, svglite, webshot,
+    xml2
 
 Package: knitr
 Source: CRAN
@@ -1109,6 +1129,12 @@ Source: CRAN
 Version: 2.6-4
 Hash: 3a8f79244bd3c50a57c93cb456f06a31
 Requires: MASS, cluster, lattice, mgcv, permute
+
+Package: viridis
+Source: CRAN
+Version: 0.6.3
+Hash: a5c007cc93deee9c6d76851cdca51feb
+Requires: ggplot2, gridExtra, viridisLite
 
 Package: viridisLite
 Source: CRAN
