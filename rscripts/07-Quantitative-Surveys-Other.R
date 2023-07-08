@@ -1222,7 +1222,7 @@ if(run_code) {
   
   # need to modify all_impute to drop a few missing appeal type records
   
-   Estimates_DV1 <- lapply(all_impute, mutate,actor_type=na_if(actor_type,"NA")) %>%
+   Estimates_DV1 <- lapply(all_impute, mutate,actor_type=na_if(as.character(actor_type),"NA")) %>%
             lapply(filter,!is.na(actor_type)) %>%
       impute_amce(num_cores=num_cores,
                       formula=new_scale~actor_type*Country + Q9 + Q13 + Q14,
