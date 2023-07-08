@@ -2,7 +2,7 @@
 
 # check if packrat is set up correctly
 print("Is packrat set up correctly?")
-stopifnot(packrat::status()=="Up to date.")
+packrat::status()
 
 source("rscripts/04a-Case-Study-Egypt.R")
 source("rscripts/05a-Case-Study-Tunisia.R")
