@@ -40,7 +40,9 @@ This data and code is released under the MIT license (see included file `LICENSE
 
 ## Requirements to run the code
 
-Re-running the code files requires installation of the following package libraries:
+This repository uses the R package [`packrat`](https://rstudio.github.io/packrat/walkthrough.html) to manage package dependencies. All of the packages used to run the code are included in the repo as source files with the versions used when the code was last run by the author. When R is started in the root directory (or via a project in Rstudio), `packrat` will set up a package library in the root directory and install any necessary packages from included source package files, which includes the ones listed below and all of their dependencies. *If you are having trouble installing source packages on Mac OS X, try running R from the terminal in the project folder (see Github issue here: https://github.com/rstudio/rstudio/issues/10883)*.
+
+Specifically, the following package libraries need to be installed to run the code:
 
 ```
 tidyverse
@@ -60,14 +62,13 @@ kableExtra
 boot
 mirt
 WDI
+remotes
 vdemdata
 knitr
 rmarkdown
 ```
 
-I would recommend using R version 4.2 or greater to run the code.
-
-Note that package `vdemdata` is not available on CRAN but can be installed from the Github repo site with the following code:
+If `packrat` is not available or you do not wish to you use it, simply install the packages above from CRAN. Note that package `vdemdata` is not available on CRAN but can be installed from the Github repo site with the following code:
 
 ```
 remotes::install_github("vdeminstitute/vdemdata")
@@ -78,6 +79,8 @@ The session info of the machine last used to run the code is as follows:
 ```{r}
 sessionInfo()
 ```
+
+I would recommend using R version 4.2 or greater to run the code.
 
 
 ## Running the code

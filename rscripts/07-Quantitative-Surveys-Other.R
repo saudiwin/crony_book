@@ -424,7 +424,7 @@ estimates <- combine_long_form %>%
                              `Distributed\n campaign\n information\n to employees`='Q52_2',
                              `Instructed\n employees\n to vote for a\n certain candidate`='Q52_3',
                              `Hosted party\n rallies`='Q52_4'),
-         Country=fct_relevel(Country,c("Morocco","Jordan",'Egypt II',"Egypt I",'Algeria','Tunisia',
+         Country=fct_relevel(Country,c("Morocco","Jordan",'Egypt II',"Egypt_first",'Algeria','Tunisia',
                                        "Ukraine","Venezuela"))) %>% 
   ungroup
 
@@ -663,7 +663,7 @@ estimates_bribe %>%
   mutate(mean_est=mean(out_est),
          Country=recode(Country,
                         `Venezuela, Bolivarian Republic of...`="Venezuela"),
-         country_lab=ifelse(Country %in% c("Egypt I","Egypt II"),Country,"Other Countries")) %>% 
+         country_lab=ifelse(Country %in% c("Egypt_first","Egypt II"),Country,"Other Countries")) %>% 
   group_by(Country,activity,value) %>% 
   summarize(prop_est=median(out_est),
             upper=quantile(out_est,.95),
@@ -802,7 +802,7 @@ fit_mod1 <- brm(formula=bf(new_scale ~ Q8 + Q13 + Q21_2 + Q8_1 +
                            Q33_1  + mo(Q38)  + Q9,
                           decomp="QR"),
                data=distinct(select(filter(combine_long_form,imputed=="1",
-                                                                                 Country=="Egypt I",
+                                                                                 Country=="Egypt_first",
                                                                  Q14=="Registered as a domestic company"),
                                                                  Q8,Q13,Q21_2,Q8_1,
                                                                  Q30_2,Q28_2,Q33_1,Q37,Q9,new_scale,
