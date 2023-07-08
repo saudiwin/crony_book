@@ -20,21 +20,21 @@ options(readr.default_locale=readr::locale(tz="Asia/Dubai"))
 # to install, use the command devtools::install_github('nathanvan/parallelsugar')
 require(parallel)
 
-source('scripts/helper_func.R')
+source('rscripts/helper_func.R')
 
 
 
-orig_data <- read_csv('data/surveys/egypt_tunisia_2017.csv')
-# run recode script
-orig_data <- recode_vars(orig_data)
+orig_data <- read_csv('data/egypt_tunisia_2017.csv')
+
+qual_data_new <- readRDS('data/qual_data_new.rds')
 
 # Egypt/Tunisia Surveys
 
-all_imp_dist_eg_tn <- readRDS('data/surveys/all_imp_dist_eg_tn.rds') %>% 
+all_imp_dist_eg_tn <- readRDS('data/all_imp_dist_eg_tn.rds') %>% 
   mutate(ResponseId=as.character(ResponseId),
-         Country=recode(Country,Egypt="Egypt I")) %>% 
+         Country=recode(Country,Egypt="Egypt_first")) %>% 
   filter(imputed %in% c("1","2","3","4","5"))
-all_impute_eg_tn <- readRDS('data/surveys/all_impute_eg_tn.rds')
+all_impute_eg_tn <- readRDS('data/all_impute_eg_tn.rds')
 all_impute_eg <- lapply(all_impute_eg_tn,filter,Country=='Egypt')
 all_impute_eg_mil <- lapply(all_impute_eg_tn,filter,Country=='Egypt',actor_type %in% c("Military","Government"))
 all_impute_alg <- lapply(all_impute_eg_tn,filter,Country=='Algeria')
@@ -42,13 +42,15 @@ num_cores <- 4
 
 # Morocco/Jordan surveys
 
-all_impute_m_jn <- readRDS('data/surveys/all_impute_jn_m.rds') 
+all_impute_m_jn <- readRDS('data/all_impute_jn_m.rds') 
 
 # Venezuela/Ukraine/Egypt II surveys
 
-all_impute_eg_vn <- readRDS("data/surveys/all_impute_eg_vn.rds")
+all_impute_eg_vn <- readRDS("data/all_impute_eg_vn.rds")
 
-run_code <- F
+# code must be run completely first time after downloading from repo
+
+run_code <- T
 
 knitr::opts_chunk$set(echo=F,warning=F,message=F,fig.align='center',dpi=1200,dev=c("pdf","png"))
 
@@ -57,7 +59,7 @@ knitr::opts_chunk$set(echo=F,warning=F,message=F,fig.align='center',dpi=1200,dev
 
 # Egypt 2018 survey
 
-data2018 <- readr::read_csv('data/surveys/egypt_mil.csv') %>% 
+data2018 <- readr::read_csv('data/egypt_mil_descriptives.csv') %>% 
   filter(Finished) %>% 
   mutate(rank_eg=ordered(rank_eg,levels=c('Private',
                                           'Corporal',
@@ -279,8 +281,8 @@ all_imp_dist_eg_vn <- all_imp_dist_eg_vn %>%
 combine_long_form <- bind_rows(all_imp_dist_eg_tn,
                                all_imp_dist_m_jn,
                                all_imp_dist_eg_vn) %>% 
-  mutate(actor_type=na_if(actor_type,"Default"),
-         appeal_type=na_if(appeal_type,"Default"),
+  mutate(actor_type=na_if(as.character(actor_type),"Default"),
+         appeal_type=na_if(as.character(appeal_type),"Default"),
          actor_type=factor(actor_type),
          appeal_type=factor(appeal_type))
 
@@ -291,6 +293,7 @@ new_scores <- fscores(new_scale)
 combine_long_form$new_scale <- new_scores[,1]
 
 
+# Figure 5.1 --------------------------------------------------------------
 
 ## ----econ,fig.cap="World Bank Development Indicator Statistics"--------------------------------
 
@@ -302,7 +305,7 @@ wdi_data <- WDI(country=c("DZA","EGY","TUN","VEN","JOR","MAR","UKR"),
                 indicator=c(GDP="NY.GDP.PCAP.KD",
                              Unemployment="SL.UEM.TOTL.ZS",
                              FDI="BN.KLT.DINV.CD.ZS")) %>% 
-  gather(key="series",value="value",-year,-iso2c,-country) %>% 
+  gather(key="series",value="value",-year,-iso2c,-country,-iso3c) %>% 
   mutate(country=recode(country,
                         `Egypt, Arab Rep.`="Egypt",
                         `Venezuela, RB`="Venezuela"))
@@ -351,9 +354,10 @@ fdi / gdp / unemp + plot_annotation(caption = "Only unemployment series are avai
                                     theme=theme_tufte()) & theme(text=element_text(family=""),
                                                                  axis.text = element_text(size=7))
 
-ggsave("wb_data.pdf",dpi=1200)
+ggsave("figures/figure_5_1.pdf",dpi=1200)
 
 
+# Figure 5.2 --------------------------------------------------------------
 
 ## ----vdem,fig.cap="Varieties of Democracy Political Indicators by Country"---------------------
 
@@ -384,9 +388,10 @@ vdem_data %>%
   facet_grid(rows=vars(series),cols=vars(country_name),
              scales="free",switch = "y")
 
-ggsave("vdem_data.pdf",dpi=1200)
+ggsave("figures/figure_5_2.pdf",dpi=1200)
 
 
+# Figure 5.3 --------------------------------------------------------------
 
 ## ----regpol2,fig.cap='Reported Firm Political Activity in Regional Comparison'-----------------
 
@@ -400,7 +405,7 @@ combine_long_prop <- combine_long_form %>%
   mutate(prop=count_resp/sum(count_resp))
   
 egypt_prop <- ungroup(combine_long_prop) %>% 
-  filter(Country=="Egypt I") %>% 
+  filter(Country=="Egypt_first") %>% 
   select(orig_prop="prop",Q9,Q8) %>% 
   distinct
 
@@ -473,6 +478,7 @@ estimates_sum %>%
   scale_shape(name='') +
   labs(caption = str_wrap("Estimates weighted by firm size and proportion of managers vs. employees to match Egypt I sample. Uncertainty derived from bootstrapping over imputed datasets.",width = 100))
 
+ggsave("figures/figure_5_3.pdf")
 
 ## ----prepare2,include=F------------------------------------------------------------------------
 
@@ -646,6 +652,7 @@ estimates_extract %>%
   labs(caption = str_wrap("Dotted line shows average level of corporate political activity per category across countries. Estimates weighted by firm size and proportion of managers vs. employees to match Egypt I sample. Uncertainty derived from bootstrapping over imputed datasets.",width = 100))
 
 
+# Figure 5.4 --------------------------------------------------------------
 
 ## ----bribes2,fig.cap="Political Activities by Answers to Percentage Paid of Sales in Bribes Increased Since the Arab Spring?"----
 
@@ -684,7 +691,10 @@ estimates_bribe %>%
   scale_shape(name='') +
   labs(caption = str_wrap("Dotted line shows average level of corporate political activity per category across countries. Estimates weighted by firm size and proportion of managers vs. employees to match Egypt I sample. Uncertainty derived from bootstrapping over imputed datasets.",width = 100))
 
+ggsave("figures/figure_5_4.pdf")
 
+
+# Figure 5.5 --------------------------------------------------------------
 
 ## ----inspect2,fig.cap="Difference in Number of Inspections from Regulators for Politically-Active versus Politically-Inactive Companies"----
 
@@ -718,7 +728,7 @@ estimates_inspect %>%
   guides(color="none") +
   labs(caption = str_wrap("Dotted line shows zero, or no difference between politically active and inactive companies. Estimates weighted by firm size and proportion of managers vs. employees to match Egypt I sample. Uncertainty derived from bootstrapping over imputed datasets.",width = 100))
 
-
+ggsave("figures/figure_5_5.pdf")
 
 ## ----data_edit2,include=F----------------------------------------------------------------------
 
@@ -780,6 +790,7 @@ combine_long_form <- mutate(combine_long_form,
                                                    "Large Increase")))
 
 
+# Table 5.1 ---------------------------------------------------------------
 
 ## ----logitPartisan2----------------------------------------------------------------------------
 
@@ -798,14 +809,14 @@ fit_mod1 <- brm(formula=bf(new_scale ~ Q8 + Q13 + Q21_2 + Q8_1 +
                                                                  Q38)),
                chains=1,iter=1000,
                family="Normal",
-               file="fit_mod1_brms.rds")
+               file="data/fit_mod1_brms_ch5.rds")
 
 new_scale <- lapply(unique(combine_long_form$Country),
                          function(c) {
                            
   # load fitted model
   
-  this_fit <- readRDS("fit_mod1_brms.rds")              
+  this_fit <- readRDS("data/fit_mod1_brms_ch5.rds")              
   
   
   over_imps1 <- parallel::mclapply(unique(combine_long_form$imputed), function(i) {
@@ -1062,6 +1073,8 @@ kable(booktabs = T,align = c("l","c","c","c"),longtable=T,
 ## 
 
 
+# Figure 5.6 --------------------------------------------------------------
+
 ## ----milsec2,fig.cap='Ties between Military-Linked Firms and Companies by Country'-------------
 
 
@@ -1129,6 +1142,11 @@ estimates_sum %>%
         legend.position = 'bottom') +
   facet_wrap(~sector)
 
+ggsave("figures/figure_5_6.pdf")
+
+
+
+# Figure 5.7 --------------------------------------------------------------
 
 ## ----amceRent2,fig.cap="Estimates for Rent Treatments (Appeal Types) by Dependent Variable"----
 
@@ -1193,9 +1211,10 @@ all_appeals %>%
   geom_hline(yintercept=0,linetype=3) +
     coord_flip()
 
-ggsave("country_all_appeal.png")
+ggsave("figures/figure_5_7.pdf")
 
 
+# Figure 5.8 --------------------------------------------------------------
 
 ## ----amceInst2,fig.cap="Estimates for Political Actor Treatments by Dependent Variable"--------
 
@@ -1248,9 +1267,10 @@ all_actors %>%
     coord_flip() +
   facet_wrap(~Level)
 
-ggsave("country_actors.png")
+ggsave("figures/figure_5_8.pdf")
 
 
+# Figure 5.9 --------------------------------------------------------------
 
 ## ----amceforeign,fig.cap="Rent Treatments by Firm Type"----------------------------------------
 
@@ -1321,9 +1341,10 @@ all_actors %>%
   geom_hline(yintercept=0,linetype=3) +
     coord_flip()
 
-ggsave("all_appeals_type.png")
+ggsave("figures/figure_5_9.pdf")
 
 
+# Figure 5.10 -------------------------------------------------------------
 
 ## ----Estimatesector,fig.cap="Estimates for Military Actor Treatments by Beliefs About Corruption"----
 
@@ -1390,9 +1411,10 @@ all_actors %>%
   geom_hline(yintercept=0,linetype=3) +
     coord_flip()
 
-ggsave("all_appeals_extract.png")
+ggsave("figures/figure_5_10.pdf")
 
 
+# Figure 5.11 -------------------------------------------------------------
 
 ## ----countryint2,fig.cap="Country-level Intercepts Across All Three Experimental Outcomes",fig.height=7----
 
@@ -1445,4 +1467,4 @@ all_countryint %>%
   coord_flip() +
   annotate('text',x=1.5,y=-.015,label='Baseline:   Tunisia')
 
-
+ggsave("figures/figure_5_11.pdf")

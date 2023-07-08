@@ -819,7 +819,7 @@ fit_mod1 <- brm(formula=bf(outcome1 ~ Q8 + Q13 + Q21_2 + Q8_1 +
                                                                  Q38)),
                chains=1,iter=1000,
                family="bernoulli",
-               file="fit_mod1_brms.rds")
+               file="data/fit_mod1_ch4_brms.rds")
 
 fit_mod2 <- brm(formula=bf(outcome2 ~ Q8 + Q13 + Q21_2 + Q8_1 + 
                            Q33_1  + mo(Q38)  + Q9,
@@ -832,7 +832,7 @@ fit_mod2 <- brm(formula=bf(outcome2 ~ Q8 + Q13 + Q21_2 + Q8_1 +
                                                                  Q38)),
                chains=1,iter=1000,
                family="bernoulli",
-               file="fit_mod1_brms.rds")
+               file="data/fit_mod1_ch4_brms.rds")
 
 fit_mod2 <- brm(formula=bf(outcome2 ~ Q8 + Q13 + Q21_2 + Q8_1 + 
                            Q33_1  + mo(Q38)  + Q9,
@@ -845,7 +845,7 @@ fit_mod2 <- brm(formula=bf(outcome2 ~ Q8 + Q13 + Q21_2 + Q8_1 +
                                                                  Q38)),
                chains=1,iter=1000,
                family="bernoulli",
-               file="fit_mod2_brms.rds")
+               file="data/fit_mod2_ch4_brms.rds")
 
 fit_mod3 <- brm(formula=bf(outcome3 ~ Q8 + Q13 + Q21_2 + Q8_1 + 
                            Q33_1  + mo(Q38)  + Q9,
@@ -858,14 +858,14 @@ fit_mod3 <- brm(formula=bf(outcome3 ~ Q8 + Q13 + Q21_2 + Q8_1 +
                                                                  Q38)),
                chains=1,iter=1000,
                family="bernoulli",
-               file="fit_mod3_brms.rds")
+               file="data/fit_mod3_ch4_brms.rds")
 
 votes <- lapply(c("Egypt I","Tunisia"),
                          function(c) {
                            
   # load fitted model
   
-  this_fit <- readRDS("fit_mod1_brms.rds")              
+  this_fit <- readRDS("data/fit_mod1_ch4_brms.rds")              
   
   
   over_imps1 <- parallel::mclapply(unique(combine_long_form$imputed), function(i) {
@@ -910,7 +910,7 @@ funds <- lapply(c("Egypt I","Tunisia"),
                            
   # load fitted model
   
-  this_fit <- readRDS("fit_mod2_brms.rds")              
+  this_fit <- readRDS("data/fit_mod2_ch4_brms.rds")              
   
   
   over_imps1 <- parallel::mclapply(unique(combine_long_form$imputed), function(i) {
@@ -953,7 +953,7 @@ rallies <- lapply(c("Egypt I","Tunisia"),
                            
   # load fitted model
   
-  this_fit <- readRDS("fit_mod3_brms.rds")              
+  this_fit <- readRDS("data/fit_mod3_ch4_brms.rds")              
   
   
   over_imps1 <- parallel::mclapply(unique(combine_long_form$imputed), function(i) {
@@ -1547,8 +1547,6 @@ all_appeals %>%
   geom_hline(yintercept=0,linetype=3) +
     coord_flip()
 
-ggsave("egy_tun_all_appeal.png")
-
 ggsave("figures/figure_4_10.pdf")
 
 
@@ -1608,8 +1606,6 @@ all_actors %>%
   geom_hline(yintercept=0,linetype=3) +
     coord_flip() +
   facet_wrap(~Country)
-
-ggsave("eg_tun_all_actors.png")
 
 ggsave("figures/figure_4_11.pdf")
 
@@ -1901,7 +1897,7 @@ all_actors %>%
          legend.position = 'bottom',
              axis.text=element_text(size=8,face="bold")) +
   #ggtitle('Country Heterogeneity in Effect of Institutions Offering Rent to Firm') +
-  facet_wrap(~DV) +
+  facet_wrap(~Level) +
   geom_hline(yintercept=0,linetype=3) +
     coord_flip()
 

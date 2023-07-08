@@ -1,0 +1,122 @@
+---
+title: "README"
+author: "Robert Kubinec"
+date: "2023-07-07"
+output: md_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(ggplot2)
+library(ggthemes)
+library(qualtRics)
+library(lubridate)
+library(stringr)
+library(googlesheets4)
+library(haven)
+library(forcats)
+library(cjoint)
+library(binom)
+library(readr)
+library(brms)
+library(kableExtra)
+library(boot)
+library(mirt)
+library(WDI)
+library(vdemdata)
+library(knitr)
+```
+
+
+
+# README
+
+This Github repository contains code and data to reproduce results in the book [Making Democracy Safe for Business: Corporate Politics During the Arab Uprisings](https://www.cambridge.org/core/books/making-democracy-safe-for-business/B937C65E6766D9A5D8AC390EA2182B21) by [Robert Kubinec](www.robertkubinec.com) (Cambridge, 2023). The repository contains one R script for each empirical chapter in the book in the `rscripts` folder. These scripts were generated from the underlying Rmarkdown files used to create the book. However, because the text of the book cannot be released due to copyright issues, the code is included without the text. The `data` folder contains necessary survey and ancillary data for the code to run. All survey responses have been anonymized by removing identifiers and any variables that could indicate the location of respondents. 
+
+This data and code is released under the MIT license (see included file `LICENSE`).
+
+## Requirements to run the code
+
+Re-running the code files requires installation of the following package libraries:
+
+```
+tidyverse
+ggplot2
+ggthemes
+qualtRics
+lubridate
+stringr
+googlesheets4
+haven
+forcats
+cjoint
+binom
+readr
+brms
+kableExtra
+boot
+mirt
+WDI
+vdemdata
+knitr
+rmarkdown
+```
+
+I would recommend using R version 4.2 or greater to run the code.
+
+Note that package `vdemdata` is not available on CRAN but can be installed from the Github repo site with the following code:
+
+```
+remotes::install_github("vdeminstitute/vdemdata")
+```
+
+The session info of the machine last used to run the code is as follows:
+
+```{r}
+sessionInfo()
+```
+
+
+## Running the code
+
+The R script `master_script.R` in the root directory will run each script in the `rscripts` folder and recompile the `README` file with the latest session info. Note that the code reproduces some figures from image files rather than from raw data. These are usually descriptive graphics and if there is any question about these files, please email the author at (rmk7@nyu.edu). 
+
+The two scripts in `rscripts` with statistical models (`06-` and `07-`) have an option `run_code` that is set by default to `TRUE` because the first time the code is run it will save fitted model objects for Bayesian regression models in `data`. Setting this option to `FALSE` in the script after running it will save significant time at reproducing the figures. All reproduced figures are saved by the code in the `figures` folder.
+
+The individual R scripts are as follows:
+
+1. `04a-Case-Study-Egypt.R` : code for Chapter 2: The Egyptian Military as the Gatekeeper
+2. `05a-Case-Study-Tunisia.R` : code for Chapter 3: Broad Rent-seeking and the Collapse of Tunisia's Anti-Democratic Coalition
+3. `06-Quantitative-Surveys.R` : code for Chapter 4: Experiments in Business and Political Connections
+4. `07-Quantitative-Surveys-Other.R` : code for Chapter 5: Crony Capitalism in International Comparison
+
+Important data files are as follows:
+
+1. `qual_data_new.rds`: original survey data for 2017 surveys of business employees in Egypt, Algeria and Tunisia
+2. `egypt_mil_survey.csv`: 2018 survey of Egyptian military officers and enlisted personnel and Tunisian businesspeople
+3. `all_imp_jn_m.rds` : imputed datasets for the 2018 Jordan and Morocco survey
+4. `all_imp_eg_vn.rds` : imputed datasets for the 2020 Egypt, Ukraine and Venezuela surveys
+5. `all_imp_eg_tn.rds` : imputed datasets for the 2017 Egypt and Tunisia survey
+
+A brief list of questions in the survey and their meaning:
+
+1. `rank_eg` The rank of a military officer
+2. `Q14` / `registration` type of firm 
+3. `Q74` / `ceo` whether the respondent is a CEO of the firm
+4. `Q13` / `sector_1` sector of the firm
+5. `Q38` / `bribe_increase` whether bribes paid by the firm have increased since the Arab Spring
+6. `Q30_2` / `supply_2` rank of military-owned companies as a supplier to the firm (1 = highest)
+7. `Q28_2` / `cust_2` rank of military-owned companies as a customer of the firm (1 = highest)
+8. `Q8` / `firm_size` Number of firm employees
+9. `Q8_1` / `conglomerate` Whether or not the company is a part of a conglomerate
+10. `Q37` / `bribe_income` How much does the company pay in bribes as a percentage of its income?
+11. `Q9` / `position` What is the status of the respondent (i.e. are they an employee or manager in the company?)
+12. `ResponseId` ID of the respondent in the survey (anonymized)
+13. `Q52_1` / `firm_pol` Did the firm contribute funds to a candidate in the elections?
+14. `Q52_2` / `firm_pol` Did the firm distribute campaign literature to employees?
+15. `Q52_3` / `firm_pol` Did the firm instruct employees to vote for a specific candidate?
+16. `Q52_4` / `firm_pol` Did the firm host party rallies?
+17. `Q33_1` / `inspect_1_1` How many times was the company inspected by government regulators in the past year?
+
+Note that there is substantial additional data available in the surveys, but this has not been released to protect the anonymity of respondents. If you are interested in additional data, please contact the author of the survey at (rmk7@nyu.edu). 
